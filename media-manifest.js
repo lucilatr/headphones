@@ -48,10 +48,10 @@ window.MEDIA_MANIFEST = {
     "images/characters/ZOE/02-ages.png"
   ],
   "environments/harmonic-hall": [
-    "images/environments/HARMONIC HALL/enhanced_Harmonic_Hall_epic_02.png"
+    "images/environments/HARMONIC HALL/harmonic-hall-01.jpg"
   ],
   "environments/metal-mountain": [
-    "images/environments/METAL MOUNTAIN/Tuning_in_RockLand_styleframe_01B.png",
-    "images/environments/METAL MOUNTAIN/Tuning_in_RockLand_styleframe_02B.png"
+    "images/environments/METAL MOUNTAIN/metal-mountain-01.jpg",
+    "images/environments/METAL MOUNTAIN/metal-mountain-02.jpg"
   ]
 };
