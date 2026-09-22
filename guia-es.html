@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEADPHONES — Guía del Mundo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0e0e0e;
+    --surface: #161616;
+    --surface2: #1c1c1c;
+    --border: #252525;
+    --pink: #FF0066;
+    --white: #FFFFFF;
+    --gray: #777777;
+    --light: #CCCCCC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--white); line-height: 1.5; }
+  .cond { font-family: 'Barlow Condensed', sans-serif; }
+
+  header { padding: 60px 60px 34px; border-bottom: 1px solid var(--border); position: relative; }
+  .eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:6px; text-transform:uppercase; color:var(--pink); margin-bottom:14px; }
+  .title-block { font-family:'Barlow Condensed',sans-serif; font-size:clamp(52px,9vw,120px); font-weight:900; text-transform:uppercase; letter-spacing:-2px; line-height:0.9; }
+  .title-block .p { color: var(--pink); }
+  .subtitle { font-family:'Barlow Condensed',sans-serif; font-size:clamp(16px,2vw,22px); font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--light); margin-top:8px; }
+  .header-intro { max-width:720px; margin-top:20px; font-size:15px; color:var(--gray); line-height:1.6; }
+  .header-meta { display:flex; flex-wrap:wrap; gap:40px; align-items:flex-end; margin-top:30px; }
+  .meta-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gray); margin-bottom:5px; }
+  .meta-value { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:800; }
+  .meta-value.pink { color: var(--pink); }
+  a.script-link { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:#fff; text-decoration:none; background:var(--pink); padding:11px 22px; border:none; transition:opacity .15s; }
+  a.script-link:hover { opacity:.8; }
+
+  .lang-switch { position:absolute; top:24px; right:60px; display:flex; gap:2px; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; }
+  .lang-switch a { padding:5px 11px; text-decoration:none; color:var(--gray); border:1px solid var(--border); }
+  .lang-switch a.on { background:var(--pink); border-color:var(--pink); color:#fff; }
+  @media (max-width:640px){ .lang-switch { right:20px; } }
+
+  nav { position:sticky; top:0; z-index:50; display:flex; gap:6px; flex-wrap:wrap; padding:14px 60px; background:rgba(14,14,14,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); }
+  .nav-btn { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:8px 20px; border:1px solid var(--border); background:transparent; color:var(--gray); cursor:pointer; transition:all .15s; }
+  .nav-btn:hover { border-color:#444; color:var(--light); }
+  .nav-btn.active { background:var(--pink); border-color:var(--pink); color:#fff; }
+
+  main { padding:48px 60px 120px; max-width:1280px; }
+  .tab { display:none; }
+  .tab.active { display:block; }
+
+  .sec-head { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--gray); margin-bottom:26px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+  .sec-head.spaced { margin-top:64px; }
+
+  .lead { font-family:'Barlow Condensed',sans-serif; font-size:clamp(22px,3vw,34px); font-weight:700; line-height:1.22; color:var(--light); max-width:900px; margin-bottom:14px; }
+  .lead .p { color:var(--pink); }
+  .tagline { font-size:13px; color:var(--gray); letter-spacing:1px; margin-bottom:8px; }
+
+  .orb-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:16px; margin:8px 0; }
+  .orb { border:1px solid var(--border); background:var(--surface); padding:20px; position:relative; }
+  .orb-n { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; color:var(--gray); }
+  .orb-name { font-family:'Barlow Condensed',sans-serif; font-size:26px; font-weight:900; text-transform:uppercase; letter-spacing:-.5px; color:var(--white); margin:4px 0 8px; }
+  .orb.heart { border-color:var(--pink); background:rgba(255,0,102,.05); }
+  .orb.heart .orb-name { color:var(--pink); }
+  .orb-desc { font-size:13px; color:var(--gray); line-height:1.55; }
+  .orb-where { font-size:12px; color:var(--light); margin-top:10px; }
+  .orb-where b { color:var(--pink); font-weight:600; }
+
+  .panel { border:1px solid var(--border); background:var(--surface); padding:26px 28px; margin-bottom:18px; }
+  .panel h3 { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--white); margin-bottom:12px; }
+  .panel h3 .p { color:var(--pink); }
+  .panel p { font-size:14px; line-height:1.65; color:var(--light); }
+  .panel p + p { margin-top:10px; }
+  .panel em { color:var(--pink); font-style:normal; }
+  .panel strong { color:var(--white); font-weight:600; }
+
+  .layers { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+  .layer { border-left:3px solid var(--pink); padding:4px 0 4px 16px; }
+  .layer .lt { font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:800; text-transform:uppercase; letter-spacing:1px; }
+  .layer .ld { font-size:13px; color:var(--gray); line-height:1.5; margin-top:4px; }
+
+  .beats { max-width:860px; border-top:1px solid var(--border); }
+  .beat { display:grid; grid-template-columns:140px 1fr; gap:28px; padding:22px 0; border-bottom:1px solid var(--border); }
+  @media (max-width:640px){ .beat { grid-template-columns:1fr; gap:8px; } }
+  .beat-n { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--pink); padding-top:3px; }
+  .beat-b p { font-size:14px; line-height:1.65; color:var(--light); }
+  .beat-b strong { color:var(--white); font-weight:600; }
+  .beat-b em { color:var(--pink); font-style:normal; }
+  .clink { color:var(--pink); cursor:pointer; border-bottom:1px dotted var(--pink); white-space:nowrap; }
+  .clink:hover { background:rgba(255,0,102,.16); }
+  .card.flash { animation:cardflash 1.6s ease; }
+  @keyframes cardflash { 0% { background:rgba(255,0,102,.14); } 100% { background:transparent; } }
+
+  .card { display:block; padding:34px 0; border-bottom:1px solid var(--border); }
+  .card-media { margin-top:22px; }
+  .card-top { display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:4px; }
+  .card-name { font-family:'Barlow Condensed',sans-serif; font-size:clamp(32px,4vw,52px); font-weight:900; text-transform:uppercase; letter-spacing:-1px; line-height:1; color:var(--white); }
+  .card-name.pink { color:var(--pink); }
+  .role-tag { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--pink); border:1px solid var(--pink); padding:3px 10px; align-self:center; white-space:nowrap; }
+  .card-logline { font-size:13px; color:var(--gray); margin-bottom:16px; }
+  .card-logline strong { color:var(--light); font-weight:600; }
+  .card-logline em { color:var(--pink); font-style:normal; }
+
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .tag { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; padding:3px 10px; border:1px solid var(--border); color:var(--gray); background:var(--surface); }
+  .tag.world { border-color:#333; color:var(--light); }
+  .tag.genre { border-color:var(--pink); color:var(--pink); background:rgba(255,0,102,.06); }
+
+  .fields { display:grid; grid-template-columns:1fr 1fr; gap:20px 34px; }
+  @media (max-width:560px){ .fields { grid-template-columns:1fr; } }
+  .field-full { grid-column:1 / -1; }
+  .fl { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gray); margin-bottom:6px; }
+  .ft { font-size:14px; line-height:1.6; color:var(--light); }
+  .ft em { color:var(--pink); font-style:normal; }
+  .ft strong { color:var(--white); font-weight:600; }
+
+  .ages { display:flex; flex-wrap:wrap; gap:5px; margin-top:4px; }
+  .age { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; padding:2px 9px; border:1px solid var(--border); color:var(--gray); background:var(--surface); }
+  .age.now { border-color:var(--pink); color:var(--pink); background:rgba(255,0,102,.06); }
+  .age.dim { color:#555; border-color:#1e1e1e; font-style:italic; }
+
+  .media { position:relative; width:100%; aspect-ratio:4/3; border:1px solid var(--border); background:var(--surface2); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .media.wide { aspect-ratio:16/9; }
+  .media-img { width:100%; height:100%; object-fit:cover; display:block; }
+  .media-ph { text-align:center; padding:18px; font-family:'Barlow Condensed',sans-serif; letter-spacing:3px; text-transform:uppercase; font-size:12px; font-weight:700; color:#3a3a3a; display:flex; flex-direction:column; gap:6px; align-items:center; }
+  .media-ph svg { width:30px; height:30px; opacity:.5; }
+  .media-ph span { font-size:9px; letter-spacing:2px; color:#2f2f2f; }
+  .media-cap { font-size:11px; color:var(--gray); margin-top:8px; letter-spacing:1px; }
+  .card-media { display:flex; flex-direction:column; }
+
+  .shots { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start; }
+  .shot { display:block; height:360px; border:1px solid var(--border); background:var(--surface2); overflow:hidden; }
+  .shot img { height:100%; width:auto; max-width:100%; object-fit:contain; display:block; }
+  .shots.wide .shot { height:300px; }
+  .shots.wide.big .shot { height:600px; }
+  @media (max-width:640px){ .shot { height:260px; } .shots.wide.big .shot { height:380px; } }
+  .no-concept.mini-note { border:none; border-bottom:1px solid var(--border); margin:0; }
+  .mini .shots { display:block; }
+  .mini .shot { height:auto; width:100%; aspect-ratio:16/10; border:none; border-bottom:1px solid var(--border); }
+  .mini .shot img { width:100%; height:100%; object-fit:cover; }
+  .no-concept { font-size:13px; color:var(--gray); font-style:italic; border:1px dashed var(--border); background:var(--surface); padding:14px 18px; letter-spacing:.3px; }
+
+  .mini-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+  .mini { border:1px solid var(--border); background:var(--surface); padding:0; overflow:hidden; display:flex; flex-direction:column; }
+  .mini .media { aspect-ratio:16/10; border:none; border-bottom:1px solid var(--border); }
+  .mini-body { padding:16px 18px 18px; }
+  .mini-name { font-family:'Barlow Condensed',sans-serif; font-size:22px; font-weight:800; text-transform:uppercase; letter-spacing:-.3px; }
+  .mini-name.pink { color:var(--pink); }
+  .mini-role { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--pink); margin:2px 0 10px; }
+  .mini-desc { font-size:13px; line-height:1.55; color:var(--gray); }
+  .mini-desc em { color:var(--light); font-style:normal; }
+
+  footer { padding:40px 60px; border-top:1px solid var(--border); color:#555; font-size:12px; letter-spacing:1px; }
+  footer .p { color:var(--pink); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="lang-switch"><a href="guia.html">EN</a><a href="guia-es.html" class="on">ES</a></div>
+  <div class="title-block"><span>HEAD</span><span class="p">PHONES</span></div>
+  <div class="header-meta">
+    <div>
+      <div class="meta-label">Guion</div>
+      <a class="script-link" href="https://drive.google.com/file/d/19F3PZ2XHNCh-Tq--JmZtL8t3ITCwvn4H/view?usp=sharing" target="_blank">Leer el guion ↗</a>
+    </div>
+    <div>
+      <div class="meta-label">Escrito por</div>
+      <div class="meta-value">Robert Rugan</div>
+    </div>
+    <div>
+      <div class="meta-label">Formato</div>
+      <div class="meta-value pink">Largometraje animado</div>
+    </div>
+  </div>
+</header>
+
+<nav id="nav">
+  <button class="nav-btn active" data-tab="overview">El Mundo</button>
+  <button class="nav-btn" data-tab="story">Historia</button>
+  <button class="nav-btn" data-tab="characters">Personajes</button>
+  <button class="nav-btn" data-tab="locations">Locaciones</button>
+</nav>
+
+<main>
+
+  <!-- ============ OVERVIEW ============ -->
+  <section class="tab active" id="tab-overview">
+    <div class="lead">
+      Una adolescente en duelo se pone los auriculares de su papá fallecido y es arrastrada al
+      <span class="p">Mundo de la Música</span> — un reino mágico que solo podrá salvar terminando
+      la última canción que él escribió para ella.
+    </div>
+    <div class="tagline">La premisa, las reglas del mundo y lo que conviene saber antes de leer.</div>
+
+    <div class="sec-head spaced">Cómo funciona el mundo</div>
+    <div class="panel">
+      <h3>Dos mundos, una <span class="p">rueda</span></h3>
+      <p>El <strong>Mundo de la Música</strong> es un reino enorme construido enteramente por la música y para la música. Nuestro mundo y el suyo se alimentan sin fin: <em>"Nuestro mundo inspira la música que se crea en el tuyo… que, a su vez, le agrega algo al nuestro. Y así sigue, una y otra vez — 'round and 'round, como una rueda."</em></p>
+      <p>Cada canción importa. <em>"Un número uno levanta una montaña. Una melodía pegadiza construye un puente. Hasta alguien cantando en la ducha puede tapar un bache o arreglar un semáforo roto."</em> El mundo está organizado por <strong>género</strong> — cientos de ellos — cada uno como su propia ciudad, región o maravilla natural.</p>
+    </div>
+    <div class="panel">
+      <h3>La entrada — los <span class="p">auriculares</span></h3>
+      <p>Zoe cruza a través de los <strong>auriculares</strong> favoritos de su papá, Miles. Se los pone, aprieta el botón, suena la música — y el altillo se deforma y se convierte en un remolino (<strong>The Vortex</strong>) que la lleva al Mundo de la Música. Puede arrancarse los auriculares en cualquier momento para volver de golpe al mundo real.</p>
+    </div>
+
+    <div class="sec-head spaced">Las cinco piezas de una canción</div>
+    <div class="tagline">Miles dejó su canción <em>sin terminar</em>. Para protegerla, Zoe debe reunir los cinco elementos de los que está hecha toda canción.</div>
+    <div class="orb-grid" id="orb-grid"></div>
+
+    <div class="sec-head spaced">El antagonista — El Silencio</div>
+    <div class="panel">
+      <h3>El <span class="p">Silencio</span></h3>
+      <p>No es un villano — es una fuerza. Las canciones que no se aman ni se comparten se desvanecen, y <em>El Silencio</em> se cuela con sus "oscuros dedos de la nada" para apagarlas. <strong>Las canciones inconclusas son las más frágiles de todas</strong> — se deshilachan en pedazos, que el Silencio va cazando uno por uno.</p>
+      <p>Se manifiesta como <strong>Tentáculos de Silencio</strong>: dedos de estática muda — sin luz, sin sonido, con los bordes temblando de distorsión — que absorben el sonido "como pequeños agujeros negros". En su forma plena es una tormenta de estática y rayos negros que sitia el Conservatorio del Sonido.</p>
+    </div>
+
+    <div class="sec-head spaced">Un mundo hecho en capas</div>
+    <div class="tagline">La historia de la música que se puede recorrer caminando — las eras viejas se funden en las nuevas.</div>
+    <div class="layers">
+      <div class="layer"><div class="lt">Los Viejos Maestros</div><div class="ld">Beethoven, Mozart, griots, ejecutantes de sitar / guqin / shamisen. Sentaron las bases.</div></div>
+      <div class="layer"><div class="lt">Los Genios</div><div class="ld">Presley, Franklin, Hendrix, Lennon, Shakur, Marley, Piaf, Cruz. Construyeron las ciudades y le dieron forma a los géneros.</div></div>
+      <div class="layer"><div class="lt">Los Íconos</div><div class="ld">Beyoncé, Swift, Lamar, Bad Bunny y muchos más. Los géneros se expanden, chocan y se fusionan en híbridos.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ STORY ============ -->
+  <section class="tab" id="tab-story">
+    <div class="lead">
+      De un altillo lleno de duelo a una canción que canta el mundo entero — el arco de <span class="p">"A Song for Zoe".</span>
+    </div>
+    <div class="tagline">Sinopsis completa, beat por beat (con spoilers). Fiel al guion.</div>
+    <div class="beats" id="beats"></div>
+  </section>
+
+  <!-- ============ LOCATIONS ============ -->
+  <section class="tab" id="tab-locations">
+    <div class="lead">Dónde pasa todo — de un altillo suburbano a una rockola del tamaño de un rascacielos.</div>
+    <div class="tagline">Los sets, agrupados por mundo. La imagen de concept va debajo de cada descripción.</div>
+
+    <div class="sec-head spaced">Mundo Real</div>
+    <div id="loc-real"></div>
+
+    <div class="sec-head spaced">Mundo de la Música</div>
+    <div id="loc-music"></div>
+
+    <div class="sec-head spaced">De paso — Sobrevuelos y paradas de género</div>
+    <div class="tagline">Entornos breves de montaje / sobrevuelo. Un beat descriptivo cada uno en el guion.</div>
+    <div class="mini-grid" id="loc-mini"></div>
+  </section>
+
+  <!-- ============ CHARACTERS ============ -->
+  <section class="tab" id="tab-characters">
+    <div class="lead">La gente, los espíritus, y la duda que tiene que vencer.</div>
+    <div class="tagline">Perfiles con las edades en las que aparece cada uno. La imagen de concept va debajo de cada uno.</div>
+
+    <div class="sec-head spaced">La familia y el mundo real</div>
+    <div id="char-real"></div>
+
+    <div class="sec-head spaced">Guía y Anciana</div>
+    <div id="char-guide"></div>
+
+    <div class="sec-head spaced">Espíritus de la música — por género</div>
+    <div id="char-spirits"></div>
+
+    <div class="sec-head spaced">Fuera de scope — Sin desarrollar</div>
+    <div id="char-out"></div>
+  </section>
+
+</main>
+
+<footer>TUNING IN — Guía del Mundo · referencia interna de introducción · <span class="p">3dar</span></footer>
+
+<script src="media-manifest.js"></script>
+<script>
+/* ---------- galerías desde media-manifest.js ---------- */
+function mediaSlot(key, cls) {
+  const M = window.MEDIA_MANIFEST || {};
+  const imgs = M[key] || [];
+  if (imgs.length) {
+    return `<div class="shots ${cls||''}">` + imgs.map(p => {
+      const u = encodeURI(p);
+      return `<a class="shot" href="${u}" target="_blank" rel="noopener"><img src="${u}" loading="lazy" alt="${key}"></a>`;
+    }).join('') + `</div>`;
+  }
+  return `<figure class="media ${cls||''}">
+    <div class="media-ph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Imagen pendiente<span>images/${key}/</span>
+    </div>
+  </figure>`;
+}
+function wireMedia() {}
+
+/* ---------- ORBES ---------- */
+const ORBS = [
+  { n:'Pieza 01', name:'Melody', desc:'La melodía en sí — una hilera brillante de notas. El primer orbe.', where:'Depto de Pip, Poppopolis' },
+  { n:'Pieza 02', name:'Rhythm', desc:'El ritmo de abajo. Aparece cuando la banda de Swing lo marca.', where:'The B-Side, Barrio del Jazz' },
+  { n:'Pieza 03', name:'Vibe', desc:'La actitud y la onda. Se gana en un duelo de guitarra.', where:'Metal Mountain' },
+  { n:'Pieza 04', name:'Message', desc:'De qué habla la canción de verdad — la letra que importa.', where:'La Despensa, The Broken String' },
+  { n:'Pieza 05', name:'Heart', desc:'El alma de la canción. La última pieza — y nunca estuvo afuera en el mundo.', where:'Dentro de Zoe', heart:true },
+];
+document.getElementById('orb-grid').innerHTML = ORBS.map(o => `
+  <div class="orb ${o.heart?'heart':''}">
+    <div class="orb-n">${o.n}</div>
+    <div class="orb-name">${o.name}</div>
+    <div class="orb-desc">${o.desc}</div>
+    <div class="orb-where">Se encuentra en: <b>${o.where}</b></div>
+  </div>`).join('');
+
+/* ---------- HISTORIA ---------- */
+const BEATS = [
+  ['Apertura', `<strong>Zoe (14)</strong>, una artista en ciernes, filma un vlog con su mejor amiga <strong>Evie</strong> desde el altillo. Arranca prometiéndole a sus seguidores una historia — <em>"Es una historia sobre la música. Pero empieza con mi papá."</em>`],
+  ['Trasfondo', `Su papá <strong>Miles</strong>, músico y querido profesor de música de secundaria, armó el estudio en el altillo y pasó años en un tema llamado <em>"A Song for Zoe"</em>, dejado a propósito sin terminar como regalo. Se enfermó y murió, dejando solo grabaciones. Consumida por el duelo, Zoe se cerró — a la defensiva, irritable, incapaz de hacer música.`],
+  ['Detonante', `Una noche, con los auriculares de su papá puestos, Zoe sigue un ruido raro hasta una caja que estalla — y aparece <strong>Pip-Pop</strong>, un espíritu de la música diminuto y viejo amigo de Miles. Él la arrastra al <strong>Mundo de la Música</strong>.`],
+  ['Las reglas', `Toda canción se construye con cinco elementos — <em>Melody, Rhythm, Vibe, Message, Heart.</em> La canción de Miles está inconclusa y sus piezas están desperdigadas por el mundo, y <strong>El Silencio</strong> la está cazando para borrarla para siempre.`],
+  ['La búsqueda', `Zoe y Pip recorren el Mundo de la Música recuperando las piezas — <strong>Poppopolis</strong>, la <strong>Glitter Ball Arena</strong>, el <strong>Barrio del Jazz</strong>, <strong>Metal Mountain</strong>, <strong>The Broken String</strong> y más — conociendo al espíritu de cada género y juntando cuatro de los cinco orbes.`],
+  ['Punto medio', `En <strong>Harmonic Hall</strong>, la Anciana <strong>Harmony</strong> revela la verdad: la última pieza — <em>The Heart</em> — vive dentro de Zoe. <em>"A Song for Zoe"</em> es, literalmente, una canción para ella; solo ella puede terminarla. Abrumada, se arranca los auriculares y huye a su casa.`],
+  ['Punto más bajo', `El Silencio se cierra — sobre la canción y sobre la propia Zoe. Consumida, es arrastrada al <strong>Void</strong> y forzada a una batalla de rap contra <strong>Shadow Zoe</strong>, su propia autocrítica. Titubea, le arrancan los auriculares y cae de nuevo al mundo real, en su peor momento.`],
+  ['Clímax', `Zoe deja de intentar <em>ser</em> su papá — <em>"No tenés que ser él. Solo tenés que ser vos."</em> Con su mamá <strong>Kay</strong> y Evie, termina la canción, sumando el Heart que llevó adentro todo el tiempo. Inscribe <em>"A Song for Zoe"</em> en <strong>The Beat Down</strong>, una batalla online que amaba su papá — contra las rivales <strong>Las Sirenas</strong>… y gana.`],
+  ['Resolución', `La canción se vuelve viral en todo el mundo — cantada, compartida y remixada en todos los idiomas. En el Mundo de la Música, el barrio que construyó Miles se ilumina y crece un brote nuevo: la última incorporación al mundo. De vuelta en el altillo, una Zoe segura graba con Kay y Evie — la alegría y la música restauradas. <em>"Pero eso fue solo el principio…"</em>`],
+];
+document.getElementById('beats').innerHTML = BEATS.map(b => `
+  <div class="beat"><div class="beat-n">${b[0]}</div><div class="beat-b"><p>${b[1]}</p></div></div>`).join('');
+
+/* ---------- LOCACIONES ---------- */
+function locCard(l) {
+  const M = window.MEDIA_MANIFEST || {};
+  const hasImgs = (M['environments/'+l.key] || []).length;
+  const media = hasImgs
+    ? `${mediaSlot('environments/'+l.key, l.big ? 'wide big' : 'wide')}<div class="media-cap">${l.name}</div>`
+    : `<div class="no-concept">(3dar no desarrolló concept — environment fuera de scope.)</div>`;
+  return `<div class="card">
+    <div class="card-info">
+      <div class="card-top"><div class="card-name ${l.pink?'pink':''}">${l.name}</div></div>
+      <div class="tags">
+        <span class="tag world">${l.world}</span>
+        ${l.genre?`<span class="tag genre">${l.genre}</span>`:''}
+      </div>
+      <div class="fields">
+        <div class="field-full"><div class="fl">Descripción</div><div class="ft">${l.desc}</div></div>
+        <div><div class="fl">En la historia</div><div class="ft">${l.story}</div></div>
+        <div><div class="fl">Quiénes están</div><div class="ft">${l.who}</div></div>
+      </div>
+    </div>
+    <div class="card-media">${media}</div>
+  </div>`;
+}
+const LOC_REAL = [
+  { key:'attic-studio', name:'El Altillo (Estudio)', world:'Mundo Real', pink:true,
+    desc:`El estudio improvisado de Miles en lo alto de la casa — un gran ventanal circular, una guirnalda de luces de Navidad en la pared del fondo que titila <em>"como estrellas en el espacio"</em>, y sus instrumentos (guitarras, amplis, teclado, grabadora multipista) junto a la laptop, el controlador MIDI y el sampler de Zoe llenos de polvo. Cajones de vinilos viejos en los rincones.`,
+    story:`El marco y el centro de la película: el vlog de apertura, la llegada de Pip, el punto de salida y regreso de cada viaje — y donde por fin se termina la canción.`,
+    who:`Zoe, Evie, Kay, Miles (grabaciones), Pip.` },
+  { key:'zoe-house', name:'La casa de Zoe', world:'Mundo Real',
+    desc:`La casa familiar — un living <em>"dolorosamente inmóvil"</em> con un piano vertical abandonado, una cocina donde de noche solo zumba la heladera, dormitorios apagados y un comedor donde estalla la tensión. Cálida en los flashbacks, hueca en el presente.`,
+    story:`Miles le enseña a la pequeña Zoe sus primeros acordes acá; el velorio; la pelea en la mesa; y el punto de giro cuando Zoe encuentra a Kay tocando de a poco la canción de cuna de Miles.`,
+    who:`Zoe, Kay, Miles, Evie.` },
+  { key:'school', name:'La escuela', world:'Mundo Real',
+    desc:`Varios sets del mundo real: el exterior de la primaria, el aula de música de la secundaria (Miles dando clase), el micro escolar aislado con auriculares, los pasillos de lockers y la cafetería — <em>"una pared de ruido".</em>`,
+    story:`Donde Las Sirenas hostigan a Zoe, donde Miles daba clase, y donde Zoe le rompe la nariz a Jade y activa la alarma de incendios — y la suspenden.`,
+    who:`Zoe, Evie, Las Sirenas (Jade, Lexi, Todd), Miles (flashback).` },
+];
+const LOC_MUSIC = [
+  { key:'poppopolis', name:'Poppopolis', world:'Mundo de la Música', genre:'Pop', pink:true,
+    desc:`Una metrópolis arcoíris de azúcar — <em>"un Times Square temático del pop subido a la máxima saturación".</em> Rascacielos con forma de boomboxes y micrófonos gigantes, veredas de neón, carteles de emojis animados. Tiene una florería que canta, cuyos ramos zumban en armonía.`,
+    story:`La primera parada de Zoe y su puerta al Mundo de la Música — establece el concepto de ciudad-género y la fama local de Pip.`,
+    who:`Pip, Mr. Keyes, espíritus del pop, una Superestrella Pop humana. Los Notables patrullan acá.` },
+  { key:'pips-apartment', name:'El depto de Pip', world:'Mundo de la Música', genre:'Pop',
+    desc:`Dentro de un edificio-ecualizador: una <em>"zona de desastre empapada de pop".</em> Notas musicales flotan como motas de polvo, hay acordes tirados sobre las sillas, latas de sopa rotuladas "C MAJ" y "EM7", una línea de bajo gruñona que vive bajo el sillón, y un póster de DJ Sparkle lleno de glitter.`,
+    story:`Donde Miles ayudó a escribir el gancho — Pip recupera <em>The Melody</em>, el primer orbe. Los Tentáculos de Silencio aparecen acá por primera vez.`,
+    who:`Pip, Zoe.` },
+  { key:'glitter-ball-arena', name:'The Glitter Ball Arena', world:'Mundo de la Música', genre:'EDM / Dance', pink:true,
+    desc:`Una bola de espejos gigante suspendida sobre un abismo de sonido y color — y la fiesta es <em>adentro</em>. Un estadio esférico de láseres, glowsticks y música dance a todo volumen, con una isla-DJ central en un mar de cuerpos. Si errás la coreo, el piso de espejos se abre como una trampa.`,
+    story:`Pip lleva a Zoe a conocer a su ídola; ella aprende a bailar, pierde un cambio de beat y cae por una trampa al Vortex.`,
+    who:`DJ Sparkle, Zoe, Pip, una multitud enorme.` },
+  { key:'the-vortex', name:'The Vortex', world:'Mundo de la Música', genre:'Tránsito',
+    desc:`Un túnel arremolinado de luz y sonido debajo del arena — los colores se borronean, los beats golpean, el aire azota como un túnel de viento. Puede achicarse y amenazar con aplastarte, pero si <em>"sintonizás"</em> y abrís los brazos, volás, bailando sobre cintas de sonido.`,
+    story:`Zoe entra en pánico y se arranca los auriculares la primera vez; al volver aprende a surfearlo y vuela libre, saliendo disparada sobre las maravillas naturales.`,
+    who:`Zoe, Pip.` },
+  { key:'jazz-quarter', name:'El Barrio del Jazz', world:'Mundo de la Música', genre:'Jazz',
+    desc:`Un barrio <em>"todo torcido"</em> donde siempre es de noche. Edificios con forma de instrumentos, chimeneas-trompeta y puertas-contrabajo; melodías sensuales salen de las alcantarillas como vapor. El laberinto se reacomoda todo el tiempo — las calles se cierran de golpe como un estuche de guitarra, los puentes se despliegan — y solo se navega improvisando.`,
+    story:`Zoe domina el laberinto cambiante confiando en la música y llega a The B-Side.`,
+    who:`Swing y su banda, Pip, Zoe.` },
+  { key:'the-b-side', name:'The B-Side', world:'Mundo de la Música', genre:'Jazz',
+    desc:`Un club de jazz encaramado sobre los techos del barrio, al que se entra saltando al portero mientras el barrio se despliega como un rollo de pianola. Adentro: un escenario con humo y una banda completa — teclas, contrabajo, batería.`,
+    story:`Pip canta la melodía, la banda de Swing marca el beat, y Zoe se gana <em>The Rhythm</em> — el segundo orbe.`,
+    who:`Swing, su banda, Zoe, Pip.` },
+  { key:'metal-mountain', name:'Metal Mountain', world:'Mundo de la Música', genre:'Metal / Rock', pink:true,
+    desc:`Un infierno brutal iluminado por lava, en las profundidades — roca volcánica negra, acero fundido, amplis destrozados y andamios de concierto oxidados. Agujas de roca se alzan <em>"como cuernos de demonio"</em>, con humo saliendo de torres de parlantes en un volcán que escupe fuego.`,
+    story:`Zoe le gana a Fuse en un duelo de guitarra y se gana <em>The Vibe</em> — el tercer orbe. Fuse le regala su dirigible "Lead Zeppelin".`,
+    who:`Fuse, Zoe, Pip.` },
+  { key:'riff-rift', name:'The Riff Rift', world:'Mundo de la Música', genre:'Metal / Rock',
+    desc:`Un cañón dentado con humo y vapor saliendo de él. Del abismo se eleva el regalo de Fuse — el <em>"Lead Zeppelin"</em>, un dirigible negro con bandas cromadas, insignia de rayo y una pequeña góndola de control de vidrio.`,
+    story:`Zoe y Pip dejan Metal Mountain en dirigible, haciendo cuentas — tres orbes conseguidos, faltan dos.`,
+    who:`Zoe, Pip.` },
+  { key:'the-broken-string', name:'The Broken String', world:'Mundo de la Música', genre:'Country / Folk',
+    desc:`Un bar solitario al costado de la ruta en el medio de la nada — cartel de neón torcido y titilante, una plantita rodadora que pasa, tablones alabeados y un perro cazador de ojos caídos en la puerta. Todo va <em>mucho más lento</em> acá. Detrás de la cocina hay una despensa escondida.`,
+    story:`Zoe y Pip vienen buscando The Message; Twang y Teller los mandan a la despensa del fondo.`,
+    who:`Twang, Teller, un perro, Zoe, Pip.` },
+  { key:'the-pantry', name:'La Despensa', world:'Mundo de la Música', genre:'Country / Folk',
+    desc:`Una cueva oscura detrás de la cocina, iluminada por una sola lamparita pelada. Estanterías del piso al techo con miles de frascos, cada uno rotulado con cinta despegada: <em>"Canciones de Engaños", "Advertencias de Mamá", "Canciones de Amor a las Camionetas"</em> — las letras de canciones inconclusas.`,
+    story:`Zoe encuentra el frasco marcado "Canciones de Padre e Hija", lee la letra de Miles, y se gana <em>The Message</em> — el cuarto orbe. Ahí atrapan a Pip los Notables.`,
+    who:`Twang, Teller, Zoe, Pip, y después los Notables.` },
+  { key:'conservatory-of-sound', name:'El Conservatorio del Sonido', world:'Mundo de la Música', genre:'El Centro', pink:true,
+    desc:`En el centro del Mundo de la Música se alza una rockola brillante <em>del tamaño de un rascacielos</em> — cromo, vidrio y tubos de neón zumbando de sonido. Adentro: un salón de marfil pulido con pilas de vinilos, arcos de neón y paredes de discos de plata, oro y platino.`,
+    story:`Los Notables convocan acá a Zoe y Pip — y se convierte en el escenario del asedio final del Silencio.`,
+    who:`Los Notables, los Ancianos (Harmony), espíritus de cámara, Zoe, Pip.` },
+  { key:'echo-chamber', name:'La Cámara de Eco', world:'Mundo de la Música', genre:'Clásica',
+    desc:`Un vacío enorme y reverberante dentro del Conservatorio. En el fondo, un coro de espíritus de cámara bajo un único foco tararea una fuga disonante y ominosa. Una puertita ornamentada lleva más adentro.`,
+    story:`Pip teme ser exiliado al "Easy-Listening" — en cambio aparece la abuelesca Anciana Harmony y los recibe con calidez.`,
+    who:`Espíritus de cámara, Harmony, Zoe, Pip.` },
+  { key:'harmonic-hall', name:'Harmonic Hall', world:'Mundo de la Música', genre:'Los Ancianos', pink:true, big:true,
+    desc:`Una rotonda luminosa de techos altísimos tipo catedral cubiertos de frescos musicales — <em>"un museo viviente de la historia de la música".</em> En el centro flota un mapa holográfico de todo el Mundo de la Música, con sus landmarks en miniatura pulsando de luz y rebobinando la historia musical.`,
+    story:`Harmony revela que Miles construyó un barrio entero — y que <em>The Heart</em> vive dentro de Zoe. Abrumada, Zoe huye; después vuelve cuando el Silencio irrumpe en el edificio.`,
+    who:`Harmony, Zoe, Pip.` },
+  { key:'miles-place', name:"Miles' Place", world:'Mundo de la Música', genre:'Legado',
+    desc:`Un barrio cálido y vivido <em>"como el East Village de Nueva York"</em> que Miles ayudó a construir, visto en detalle en el mapa de Harmony. En una esquina brilla un café — <strong>MILES' PLACE</strong> — donde músicos humanos y espíritus de la música se juntan a tocar riffs e intercambiar ideas.`,
+    story:`Revela el verdadero legado de Miles. En el final la manzana entera se ilumina y crece un brote luminoso en el parque — la última incorporación al Mundo de la Música.`,
+    who:`Músicos humanos y espíritus de la música (el legado de Miles).` },
+  { key:'the-vault', name:'La Bóveda', world:'Mundo de la Música', genre:'Conservatorio',
+    desc:`Una bóveda pesada e insonorizada con puerta de combinación, en lo profundo del Conservatorio. Cuando el Silencio arrecia, notas agudas delicadas se sueltan y caen como polvo, y las placas del techo se rajan y estallan como platillos.`,
+    story:`Harmony encierra ahí a Pip y a los cuatro orbes para ponerlos a salvo después de que se llevan a Zoe. Desde acá Pip ve a los orbes repeler los Tentáculos — y al final sale bailando cuando la canción está terminada.`,
+    who:`Pip, Harmony, los cuatro orbes.` },
+  { key:'the-void', name:'The Void', world:'Mundo de la Música', genre:'Hip-Hop', pink:true,
+    desc:`Nada negra absoluta, y de golpe un foco duro que se enciende desde arriba — dejando a Zoe aislada en un piso frío mientras se materializa una multitud de siluetas borrosas y sin rostro, ansiosas por una batalla de rap. Una arena psicológica dentro del propio Silencio.`,
+    story:`El punto más bajo de Zoe: consumida por el Silencio, es forzada a una batalla contra su propia duda. Titubea y cae de vuelta al mundo real.`,
+    who:`MC Flow, Shadow Zoe, la multitud invocada, Zoe.` },
+];
+const LOC_MINI = [
+  { key:'woodwind-woods', name:'Woodwind Woods', genre:'Naturaleza', desc:`<em>Un bosque hecho enteramente de instrumentos — cuando sopla el viento, los árboles se tocan solos.</em>` },
+  { key:'mount-crescendo', name:'Mount Crescendo', genre:'Naturaleza', desc:`<em>Una montaña donde la música crece a medida que subís.</em>` },
+  { key:'echo-canyon', name:'Echo Canyon', genre:'Naturaleza', desc:`<em>Paredes de piedra que devuelven cada letra en armonías densas y superpuestas.</em>` },
+  { key:'siren-sea', name:'Siren Sea', genre:'Naturaleza', desc:`<em>Olas que rompen en progresiones de acordes, estallando en brumas de notas musicales.</em>` },
+  { key:'ascending-falls', name:'Ascending Falls', genre:'Naturaleza', desc:`<em>Una cascada que fluye en una escala ascendente perfecta — y te auto-tunea la voz.</em>` },
+  { key:'funk-den', name:'The Funk Den', genre:'Funk', desc:`Una zapada psicodélica — el hogar de <em>Fonk</em>.` },
+  { key:'church-of-soul', name:'Church of Soul', genre:'Soul / Gospel', desc:`Un revival que levanta el techo, con coro gospel — el hogar de <em>Mama Hallelujah</em>.` },
+  { key:'doo-wop-diner', name:'The Doo-Wop Diner', genre:'Doo-Wop', desc:`Una serenata de balada de amor a cargo de los espíritus <em>The Croonettes</em>.` },
+  { key:'delta-bluesline', name:'The Delta Bluesline', genre:'Blues', desc:`Un andén de tren a medianoche donde un bluesman fantasmal llamado <em>Blue</em> gime en la armónica.` },
+  { key:'garage-hang', name:'The Garage Hang', genre:'Grunge', desc:`Una zapada de garage con camisas a cuadros y los espíritus <em>Riff & Raff</em>; Zoe toca la batería como un joven Dave Grohl.` },
+];
+document.getElementById('loc-real').innerHTML = LOC_REAL.map(locCard).join('');
+document.getElementById('loc-music').innerHTML = LOC_MUSIC.map(locCard).join('');
+document.getElementById('loc-mini').innerHTML = LOC_MINI.map(l => {
+  const has = ((window.MEDIA_MANIFEST || {})['environments/'+l.key] || []).length;
+  const top = has ? mediaSlot('environments/'+l.key) : `<div class="no-concept mini-note">(3dar — fuera de scope.)</div>`;
+  return `<div class="mini">${top}
+    <div class="mini-body"><div class="mini-name">${l.name}</div><div class="mini-role">${l.genre}</div><div class="mini-desc">${l.desc}</div></div>
+  </div>`;
+}).join('');
+
+/* ---------- PERSONAJES ---------- */
+function charCard(c) {
+  let body;
+  if (c.fields) {
+    const fields = c.fields.map(f => `<div class="${f.full?'field-full':''}"><div class="fl">${f.l}</div><div class="ft">${f.t}</div></div>`).join('');
+    const ages = c.ages ? `<div class="field-full"><div class="fl">Aparece a las edades</div><div class="ages">${c.ages}</div></div>` : '';
+    body = `<div class="card-logline">${c.logline}</div><div class="fields">${fields}${ages}</div>`;
+  } else {
+    body = `<div class="card-logline">${c.desc||''}</div>`;
+  }
+  const M = window.MEDIA_MANIFEST || {};
+  const hasImgs = (M['characters/'+c.key] || []).length;
+  const media = (!hasImgs && c.noConcept)
+    ? `<div class="no-concept">(3dar no desarrolló concept — personaje fuera de scope.)</div>`
+    : `${mediaSlot('characters/'+c.key,'')}<div class="media-cap">${c.name}</div>`;
+  return `<div class="card" id="char-${c.key}">
+    <div class="card-info">
+      <div class="card-top"><div class="card-name ${c.pink?'pink':''}">${c.name}</div><div class="role-tag">${c.role}</div></div>
+      ${body}
+    </div>
+    <div class="card-media">${media}</div>
+  </div>`;
+}
+const AGE = (list) => list.map(a => `<span class="age ${a.now?'now':''} ${a.dim?'dim':''}">${a.t}</span>`).join('');
+
+const CHAR_REAL = [
+  { key:'zoe', name:'Zoe', role:'Protagonista', pink:true,
+    logline:`<strong>14 años</strong> — hija de Miles y Kay. Artista y compositora emergente. Alias: Zowie Stardust.`,
+    ages: AGE([{t:'Recién nacida'},{t:'Bebé'},{t:'3'},{t:'5'},{t:'7'},{t:'8'},{t:'10'},{t:'11'},{t:'12'},{t:'13'},{t:'14 — presente',now:true}]),
+    fields:[
+      {l:'Físico',t:`Estilo <em>cool</em> contemporáneo, pelo multicolor, un look <em>neo-pop-punk con brillos</em> que grita futura rockstar. Sus propios auriculares — <em>rosa neón, gruesos, cubiertos de gemas</em> — son 100% Zoe.`},
+      {l:'Personalidad',t:`Creativa, apasionada por la música desde que nació. El duelo por su papá la vuelve <em>a la defensiva, irritable, cerrada</em> — mucho carácter (le rompe la nariz a Jade de una piña) sobre una enorme profundidad emocional. Su arco: del silencio emocional a encontrar su propia voz.`},
+      {l:'Habilidades',t:`Guitarra, sampler, controlador MIDI, laptop de producción, batería. Mezcla sonidos electrónicos de todos los géneros en un estilo enteramente propio.`, full:true},
+    ]},
+  { key:'miles', name:'Miles', role:'Padre / Motor Emocional',
+    logline:`<strong>20 y pico</strong> al inicio — papá de Zoe, marido de Kay. Fallece antes del presente de la historia.`,
+    ages: AGE([{t:'20s — nace Zoe'},{t:'20s–30s (flashbacks)'},{t:'Enfermo'},{t:'Fallecido — solo grabaciones',dim:true}]),
+    fields:[
+      {l:'Físico',t:`Hombre de veintipico, <em>desprolijo pero cool</em>, siempre rodeado de instrumentos y partituras desparramadas, con auriculares clásicos puestos. Enfermo: más flaco, ojos cerrados, respiración leve.`},
+      {l:'Personalidad',t:`Padre tierno, juguetón, presente. Profesor de música de secundaria con vocación genuina — paciente, inspirador, divertido. <em>Nunca famoso en el mundo real</em>, pero enormemente querido en el Mundo de la Música.`},
+      {l:'Legado',t:`Guitarrista, pianista y compositor. Conoció a Kay en una banda de garage. Pasó años en <em>"A Song for Zoe"</em>, dejada sin terminar como regalo. Tiene su propio barrio en el Mundo de la Música: <em>Miles' Place.</em>`, full:true},
+    ]},
+  { key:'kay', name:'Kay', role:'Madre',
+    logline:`<strong>20 y pico</strong> al inicio, adulta en el presente — mamá de Zoe, viuda de Miles.`,
+    ages: AGE([{t:'Banda — novia'},{t:'20s — embarazada'},{t:'Adulta — presente',now:true}]),
+    fields:[
+      {l:'Físico',t:`Joven al inicio, muchas veces en <em>ambo de hospital</em>, embarazada en la apertura. En el presente, una adulta que sostiene sola a la familia.`},
+      {l:'Personalidad',t:`Práctica, trabajadora, estructurada. Parece <em>"seguir como si nada"</em> tras la muerte de Miles — lo que frustra a Zoe — pero por dentro está devastada. Tiene una voz hermosa, clara y suave, y encuentra en la música el camino de vuelta a su hija.`},
+    ]},
+  { key:'evie', name:'Evie', role:'Mejor Amiga', pink:true,
+    logline:`<strong>14 años</strong> — mejor amiga de Zoe desde la infancia. Baterista. Alias: Evie-E.`,
+    ages: AGE([{t:'11'},{t:'14 — presente',now:true}]),
+    fields:[
+      {l:'Físico',t:`Adolescente con <em>brackets</em> — su sonrisa de fierritos es un rasgo recurrente y entrañable. Una energía y presencia que llenan el cuadro.`},
+      {l:'Personalidad',t:`Exuberante, optimista, totalmente leal, con un humor <em>encantadoramente cringe</em>. Es la camarógrafa del canal y el motor emocional del dúo — transmite en vivo el set final sin preguntar.`},
+    ]},
+];
+const CHAR_GUIDE = [
+  { key:'pip-pop', name:'Pip-Pop', role:'Espíritu de la Música / Guía',
+    logline:`<em>Sir Pipalonious-Pop-Bop-Boomzarella III, Príncipe del Pop</em> — espíritu de la música y viejo amigo de Miles.`,
+    fields:[
+      {l:'Físico',t:`Espíritu <em>diminuto</em> de pelo color caramelo y la energía de un cañón de confeti. Chiquito pero con una voz sorprendentemente grande; las orejas se le caen cuando está triste. Sale de un cajón de vinilos como un muñeco a resorte.`},
+      {l:'Personalidad',t:`Fan total de DJ Sparkle. Impulsivo, ansioso, dramático y <em>transgresor</em> — rompe las reglas de Poppopolis por amor. Genuinamente destrozado por la muerte de Miles; protege a Zoe como una misión sagrada.`},
+    ]},
+  { key:'harmony', name:'Harmony', role:'Anciana de la Música · Guardiana de los Acordes', pink:true,
+    logline:`Una de las Ancianas de la Música, dueña de Harmonic Hall — conoce el destino de Zoe antes que la propia Zoe.`,
+    fields:[
+      {l:'Físico',t:`<em>Rolliza, luminosa, tipo abuela</em>, con anteojos redondos enormes y un chal de notas musicales brillantes.`},
+      {l:'Personalidad',t:`Sabia, cálida, maternal — da abrazos fuertes. Entrega la verdad clave de la historia: <em>el Heart vive dentro de Zoe,</em> y solo ella puede terminar la canción.`},
+    ]},
+];
+const CHAR_SPIRITS = [
+  { key:'dj-sparkle', name:'DJ Sparkle', pink:true, role:'Reina del Dance · Glitter Ball Arena', desc:`Body con brillos, <em>plataformas, auriculares corridos sobre una oreja,</em> anteojos de glitter enormes y una sonrisa megawatt. Comanda dos bandejas luminosas. La ídola absoluta de Pip.` },
+  { key:'swing', name:'Swing', role:'Espíritu del Jazz · The B-Side', desc:`<em>Alto, esbelto, suave</em>, con un saxo dorado, sombrero de ala ancha y sobretodo largo. Cadencia de jazzero veterano. Conoció a Miles "hace mucho" y lidera su propia banda.` },
+  { key:'fuse', name:'Fuse', role:'Espíritu del Metal · Metal Mountain', desc:`<em>"The Screamin' Demon"</em> — un gremlin de pelo azul eléctrico, chaleco de cuero con tachas, anteojos de rayo y botas plataforma enormes. Voz con reverb incorporada. Shreddea como Van Halen; pierde un duelo de guitarra con Zoe y le da su respeto.` },
+  { key:'twang', name:'Twang', role:'Espíritu del Country · The Broken String', desc:`<em>Larguirucho, lento,</em> escupiendo tabaco, rasgueando una lap steel. Guarda frascos de letras inconclusas junto a Teller.` },
+  { key:'teller', name:'Teller', role:'Espíritu del Folk · The Broken String', desc:`<em>De overol,</em> parpadeo lento, acento sureño espeso, banjo en mano. Guarda miles de frascos repletos de letras inconclusas.` },
+  { key:'fonk', name:'Fonk', role:'Espíritu del Funk · The Funk Den', desc:`<em>A lo Bootsy Collins</em> — bigote y anteojos psicodélicos, grooves sin vergüenza. Aparece en el montaje de géneros.` },
+  { key:'mama-hallelujah', name:'Mama Hallelujah', role:'Espíritu del Soul / Gospel · Church of Soul', desc:`Espíritu gospel que <em>literalmente levanta el techo con la voz</em> — en el final canta tan fuerte que revienta los vitrales. Presencia enorme, maternal, poderosa.` },
+  { key:'mc-flow', name:'MC Flow', role:'Espíritu del Hip-Hop · The Void', desc:`Ropa holgada, <em>cadena de oro,</em> pura energía de hype. Conduce la batalla de rap entre Zoe y Shadow Zoe dentro del Vacío del Silencio.` },
+];
+const CHAR_OUT = [
+  { key:'mr-keyes', name:'Mr. Keyes', role:'Vecino de Poppopolis', noConcept:true, desc:`Dueño orgulloso de una <em>florería que canta</em> en la avenida de Poppopolis, donde los ramos zumban en perfecta armonía.` },
+  { key:'lead-notable', name:'Los Notables', role:'Guardias del Conservatorio', noConcept:true, desc:`Banda marcial meets guardias de shopping: bandas cruzadas, batutas y sombreros enormes rematados con notas musicales que marcan el rango — el Notable Líder lleva una Clave de Sol gigante. Hablan en doo-wop cantado y leen los cargos de rollos de partitura desenrollados.` },
+  { key:'the-silence', name:'El Silencio', pink:true, role:'La Fuerza Antagonista', noConcept:true, desc:`No es un personaje — es una fuerza. <em>Tentáculos reptantes de estática muda</em> que borran las canciones no amadas ni compartidas, cazando la inconclusa "A Song for Zoe" pieza por pieza y sitiando el Conservatorio.` },
+  { key:'shadow-zoe', name:'Shadow Zoe', pink:true, role:'La Duda Interna · The Void', noConcept:true, desc:`La copia oscura de Zoe: <em>buzo negro, piel pálida, ojos negros sin alegría, ojeras.</em> Ataca con rimas como navajas — la voz de su miedo y su autocrítica.` },
+  { key:'jade', name:'Jade', pink:true, role:'Las Sirenas · Voz Líder', noConcept:true, desc:`La chica mala por excelencia — <em>puro veneno y femme fatale.</em> Domina el mundo social con crueldad calculada; termina con la nariz rota y se desmorona cuando pierde The Beat Down.` },
+  { key:'lexi', name:'Lexi', role:'Las Sirenas · Batería', noConcept:true, desc:`<em>Grande, con contextura de linebacker</em> — la fuerza bruta de Las Sirenas. Suelta la frase más cruel sobre el papá fallecido de Zoe.` },
+  { key:'todd', name:'Todd', role:'Las Sirenas · Teclas / Synth', noConcept:true, desc:`Un pibe de <em>delineador negro,</em> inseguro y desesperado por parecer cool. Cuando Las Sirenas pierden, pregunta con genuina confusión: <em>"Pará. ¿Quién es Zoe?"</em>` },
+];
+document.getElementById('char-real').innerHTML = CHAR_REAL.map(charCard).join('');
+document.getElementById('char-guide').innerHTML = CHAR_GUIDE.map(charCard).join('');
+const miniChar = (c) => `<div class="mini">${mediaSlot('characters/'+c.key)}
+  <div class="mini-body"><div class="mini-name ${c.pink?'pink':''}">${c.name}</div><div class="mini-role">${c.role}</div><div class="mini-desc">${c.desc}</div></div>
+</div>`;
+document.getElementById('char-spirits').innerHTML = CHAR_SPIRITS.map(charCard).join('');
+document.getElementById('char-out').innerHTML = CHAR_OUT.map(charCard).join('');
+
+/* ---------- TABS ---------- */
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+/* ---------- nombres de personajes clicleables en Historia ---------- */
+const STORY_CHARS = [
+  ['Shadow Zoe','shadow-zoe'], ['Pip-Pop','pip-pop'], ['El Silencio','the-silence'],
+  ['DJ Sparkle','dj-sparkle'], ['Mama Hallelujah','mama-hallelujah'], ['MC Flow','mc-flow'],
+  ['Harmony','harmony'], ['Miles','miles'], ['Evie','evie'], ['Kay','kay'],
+  ['Fuse','fuse'], ['Swing','swing'], ['Zoe','zoe'],
+];
+const CHAR_KEYSET = new Set([].concat(
+  CHAR_REAL.map(c=>c.key), CHAR_GUIDE.map(c=>c.key), CHAR_SPIRITS.map(c=>c.key), CHAR_OUT.map(c=>c.key)
+));
+function goToChar(key) {
+  const btn = document.querySelector('.nav-btn[data-tab="characters"]');
+  if (btn) btn.click();
+  setTimeout(() => {
+    const el = document.getElementById('char-' + key);
+    if (el) { el.scrollIntoView({ behavior:'smooth', block:'start' }); el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+  }, 70);
+}
+function linkifyStory() {
+  const root = document.getElementById('beats');
+  if (!root) return;
+  const esc = s => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+  const names = STORY_CHARS.filter(x => CHAR_KEYSET.has(x[1]));
+  const map = {}; names.forEach(x => map[x[0]] = x[1]);
+  const re = new RegExp('(?:' + names.map(x => esc(x[0])).join('|') + ')', 'g');
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(n){ const p = n.parentElement; return (p && !p.closest('a') && !p.closest('em')) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; }
+  });
+  const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const text = node.nodeValue; re.lastIndex = 0;
+    if (!re.test(text)) return;
+    re.lastIndex = 0;
+    const frag = document.createDocumentFragment(); let last = 0, m;
+    while ((m = re.exec(text))) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      const nm = m[0], key = map[nm];
+      const a = document.createElement('a');
+      a.className = 'clink'; a.textContent = nm;
+      a.addEventListener('click', () => goToChar(key));
+      frag.appendChild(a);
+      last = m.index + nm.length;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  });
+}
+linkifyStory();
+
+wireMedia();
+</script>
+</body>
+</html>
