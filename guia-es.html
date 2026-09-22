@@ -130,8 +130,12 @@
   .card-media { display:flex; flex-direction:column; }
 
   .shots { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-start; }
-  .shot { display:block; height:360px; border:1px solid var(--border); background:var(--surface2); overflow:hidden; }
-  .shot img { height:100%; width:auto; max-width:100%; object-fit:contain; display:block; }
+  .shot { position:relative; display:block; height:360px; border:1px solid var(--border); background:var(--surface2); overflow:hidden; }
+  .shot::before { content:''; position:absolute; inset:0; z-index:0; background:linear-gradient(100deg,#191919 25%,#2a2a2a 50%,#191919 75%); background-size:200% 100%; animation:shimmer 1.3s linear infinite; }
+  .shot.loaded::before { display:none; }
+  .shot img { position:relative; z-index:1; height:100%; width:auto; max-width:100%; object-fit:contain; display:block; opacity:0; transition:opacity .35s ease; }
+  .shot img.loaded { opacity:1; }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
   .shots.wide .shot { height:300px; }
   .shots.wide.big .shot { height:600px; }
   @media (max-width:640px){ .shot { height:260px; } .shots.wide.big .shot { height:380px; } }
@@ -287,7 +291,13 @@ function mediaSlot(key, cls) {
     </div>
   </figure>`;
 }
-function wireMedia() {}
+function wireMedia() {
+  document.querySelectorAll('.shot img').forEach(img => {
+    const done = () => { img.classList.add('loaded'); const s = img.closest('.shot'); if (s) s.classList.add('loaded'); };
+    if (img.complete && img.naturalWidth) done();
+    else { img.addEventListener('load', done); img.addEventListener('error', () => { const s = img.closest('.shot'); if (s) s.classList.add('loaded'); }); }
+  });
+}
 
 /* ---------- ORBES ---------- */
 const ORBS = [
@@ -521,7 +531,7 @@ const CHAR_SPIRITS = [
   { key:'swing', name:'Swing', role:'Espíritu del Jazz · The B-Side', desc:`<em>Alto, esbelto, suave</em>, con un saxo dorado, sombrero de ala ancha y sobretodo largo. Cadencia de jazzero veterano. Conoció a Miles "hace mucho" y lidera su propia banda.` },
   { key:'fuse', name:'Fuse', role:'Espíritu del Metal · Metal Mountain', desc:`<em>"The Screamin' Demon"</em> — un gremlin de pelo azul eléctrico, chaleco de cuero con tachas, anteojos de rayo y botas plataforma enormes. Voz con reverb incorporada. Shreddea como Van Halen; pierde un duelo de guitarra con Zoe y le da su respeto.` },
   { key:'twang', name:'Twang', role:'Espíritu del Country · The Broken String', desc:`<em>Larguirucho, lento,</em> escupiendo tabaco, rasgueando una lap steel. Guarda frascos de letras inconclusas junto a Teller.` },
-  { key:'teller', name:'Teller', role:'Espíritu del Folk · The Broken String', desc:`<em>De overol,</em> parpadeo lento, acento sureño espeso, banjo en mano. Guarda miles de frascos repletos de letras inconclusas.` },
+  { key:'teller', name:'Teller', role:'Espíritu del Folk · The Broken String', desc:`Parpadeo lento, acento sureño espeso, banjo en mano. Guarda miles de frascos repletos de letras inconclusas.` },
   { key:'fonk', name:'Fonk', role:'Espíritu del Funk · The Funk Den', desc:`<em>A lo Bootsy Collins</em> — bigote y anteojos psicodélicos, grooves sin vergüenza. Aparece en el montaje de géneros.` },
   { key:'mama-hallelujah', name:'Mama Hallelujah', role:'Espíritu del Soul / Gospel · Church of Soul', desc:`Espíritu gospel que <em>literalmente levanta el techo con la voz</em> — en el final canta tan fuerte que revienta los vitrales. Presencia enorme, maternal, poderosa.` },
   { key:'mc-flow', name:'MC Flow', role:'Espíritu del Hip-Hop · The Void', desc:`Ropa holgada, <em>cadena de oro,</em> pura energía de hype. Conduce la batalla de rap entre Zoe y Shadow Zoe dentro del Vacío del Silencio.` },

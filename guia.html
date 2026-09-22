@@ -258,8 +258,12 @@
 
   /* image galleries from media-manifest.js — full character/scene visible (no crop) */
   .shots { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
-  .shot { display: block; height: 360px; border: 1px solid var(--border); background: var(--surface2); overflow: hidden; }
-  .shot img { height: 100%; width: auto; max-width: 100%; object-fit: contain; display: block; }
+  .shot { position: relative; display: block; height: 360px; border: 1px solid var(--border); background: var(--surface2); overflow: hidden; }
+  .shot::before { content:''; position:absolute; inset:0; z-index:0; background:linear-gradient(100deg,#191919 25%,#2a2a2a 50%,#191919 75%); background-size:200% 100%; animation:shimmer 1.3s linear infinite; }
+  .shot.loaded::before { display:none; }
+  .shot img { position:relative; z-index:1; height: 100%; width: auto; max-width: 100%; object-fit: contain; display: block; opacity:0; transition:opacity .35s ease; }
+  .shot img.loaded { opacity:1; }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
   .shots.wide .shot { height: 300px; }
   .shots.wide.big .shot { height: 600px; }
   @media (max-width: 640px){ .shot { height: 260px; } .shots.wide.big .shot { height: 380px; } }
@@ -431,7 +435,13 @@ function mediaSlot(key, cls) {
     </div>
   </figure>`;
 }
-function wireMedia() {}
+function wireMedia() {
+  document.querySelectorAll('.shot img').forEach(img => {
+    const done = () => { img.classList.add('loaded'); const s = img.closest('.shot'); if (s) s.classList.add('loaded'); };
+    if (img.complete && img.naturalWidth) done();
+    else { img.addEventListener('load', done); img.addEventListener('error', () => { const s = img.closest('.shot'); if (s) s.classList.add('loaded'); }); }
+  });
+}
 
 /* ---------- OVERVIEW: orbs ---------- */
 const ORBS = [
@@ -665,7 +675,7 @@ const CHAR_SPIRITS = [
   { key:'swing', name:'Swing', role:'Jazz Spirit · The B-Side', desc:`<em>Tall, slender, smooth</em>, with a golden saxophone, wide-brimmed hat and long coat. Veteran jazzman cadence. Knew Miles "a long time" and leads his own backing band.` },
   { key:'fuse', name:'Fuse', role:'Metal Spirit · Metal Mountain', desc:`<em>"The Screamin’ Demon"</em> — a little gremlin with electric-blue hair, studded leather vest, lightning-bolt shades and giant platform boots. Voice with built-in reverb. Shreds like Van Halen; loses a guitar duel to Zoe and gives her his respect.` },
   { key:'twang', name:'Twang', role:'Country Spirit · The Broken String', desc:`<em>Lanky, slow-moving,</em> tobacco-spitting, idly strumming a steel guitar. Keeps jars of unfinished song lyrics with Teller.` },
-  { key:'teller', name:'Teller', role:'Folk Spirit · The Broken String', desc:`<em>Overalls,</em> slow-blinking, thick Southern drawl, banjo in hand. Keeps thousands of mason jars packed with unfinished lyrics.` },
+  { key:'teller', name:'Teller', role:'Folk Spirit · The Broken String', desc:`Slow-blinking, thick Southern drawl, banjo in hand. Keeps thousands of mason jars packed with unfinished lyrics.` },
   { key:'fonk', name:'Fonk', role:'Funk Spirit · The Funk Den', desc:`<em>À la Bootsy Collins</em> — mustache and psychedelic shades, shameless grooves. Appears during the genre montage.` },
   { key:'mama-hallelujah', name:'Mama Hallelujah', role:'Soul / Gospel Spirit · Church of Soul', desc:`Gospel spirit who <em>literally lifts the roof with her voice</em> — at the finale she belts so hard she blows out the stained glass. Enormous, maternal, powerful.` },
   { key:'mc-flow', name:'MC Flow', role:'Hip-Hop Spirit · The Void', desc:`Baggy clothes, <em>gold chain,</em> pure hype energy. Hosts the rap battle between Zoe and Shadow Zoe inside the Void of Silence.` },
